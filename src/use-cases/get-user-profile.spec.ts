@@ -16,13 +16,13 @@ describe('Get User Profile Use Case', () => {
   })
 
   test('should be able to get user profile', async () => {
-    await usersRepository.create({
+    const createdUser = await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password_hash: await hash('123456', 6),
     })
 
-    const { user } = await sut.execute({ id: 'user-1' })
+    const { user } = await sut.execute({ id: createdUser.id })
 
     expect(user.id).toEqual(expect.any(String))
     expect(user.name).toEqual('John Doe')
